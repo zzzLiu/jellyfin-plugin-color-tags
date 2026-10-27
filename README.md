@@ -1,5 +1,7 @@
 # Jellyfin Color Tags
 
+[中文说明](README.zh-CN.md)
+
 Colored dots for the Jellyfin web UI. Hover a poster and the dot sits above the ⋮ button. In the player it sits next to the favorite button. Give each color a name, drag the list to reorder, and optionally cap streaming bitrate or force transcode for items with that color.
 
 English by default. Any display language that starts with `zh` (`zh-CN`, `zh-TW`, `zh-HK`, `zh-Hans`) uses Simplified Chinese. `auto` or an empty language follows the browser.
@@ -54,6 +56,16 @@ Optional before a public release:
 - `docs/screenshots/poster.png` — dot above the ⋮ button
 - `docs/screenshots/player.png` — dot next to the favorite button
 - `docs/screenshots/settings.png` — labels and tagged items
+
+## Support
+
+[Ko-fi](https://ko-fi.com/zzzliu)
+
+[![Buy me a coffee](docs/donate/ko-fi-button.png)](https://ko-fi.com/zzzliu)
+
+Users in China can scan the WeChat Appreciate (赞赏) QR code:
+
+<img src="docs/donate/wechat-appreciate.jpg" alt="WeChat Appreciate QR code" width="220" />
 
 ## License
 
