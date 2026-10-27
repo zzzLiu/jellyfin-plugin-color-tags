@@ -6,6 +6,16 @@ Colored dots for the Jellyfin web UI. Hover a poster and the dot sits above the 
 
 English by default. Any display language that starts with `zh` (`zh-CN`, `zh-TW`, `zh-HK`, `zh-Hans`) uses Simplified Chinese. `auto` or an empty language follows the browser.
 
+## Screenshots
+
+Movies library grid with green color-tag dots and the tag menu open.
+
+![Movies library grid with green color-tag dots and the tag menu open](docs/screenshots/color-tags-movies-grid.png)
+
+Series library grid with color-tag dots and the tag menu open.
+
+![Series library grid with color-tag dots and the tag menu open](docs/screenshots/color-tags-series-grid.png)
+
 ## Compatibility
 
 - Jellyfin **12** (including nyanmisaka builds that report ABI `12.0.0.0`)
@@ -48,14 +58,6 @@ Open **Jellyfin Color Tags** in the dashboard server menu (Chinese label: **Jell
 - Tagged items show title, library, and path. Export writes a CSV.
 
 Default names follow the interface language (White / 白, Red / 红, Green / 绿, Blue / 蓝). A name you change stays as you wrote it.
-
-## Screenshots
-
-Optional before a public release:
-
-- `docs/screenshots/poster.png` — dot above the ⋮ button
-- `docs/screenshots/player.png` — dot next to the favorite button
-- `docs/screenshots/settings.png` — labels and tagged items
 
 ## Support
 

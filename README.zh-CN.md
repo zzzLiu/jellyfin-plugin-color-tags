@@ -6,6 +6,16 @@
 
 界面默认英文。显示语言以 `zh` 开头（`zh-CN`、`zh-TW`、`zh-HK`、`zh-Hans`）时用简体中文。`auto` 或留空则跟浏览器语言。
 
+## 效果图
+
+电影库海报网格上的绿色颜色标签，标签菜单已打开。
+
+![电影库海报网格，带绿色颜色标签和打开的标签菜单](docs/screenshots/color-tags-movies-grid.png)
+
+剧集库海报网格上的颜色标签，标签菜单已打开。
+
+![剧集库海报网格，带颜色标签和打开的标签菜单](docs/screenshots/color-tags-series-grid.png)
+
 ## 兼容性
 
 - Jellyfin **12**（含上报 ABI `12.0.0.0` 的 nyanmisaka 构建）
