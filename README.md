@@ -1,1 +1,64 @@
-# jellyfin-plugin-color-tags
+# Jellyfin Color Tags
+
+Colored dots for the Jellyfin web UI. Hover a poster and the dot sits above the ⋮ button. In the player it sits next to the favorite button. Give each color a name, drag the list to reorder, and optionally cap streaming bitrate or force transcode for items with that color.
+
+English by default. Any display language that starts with `zh` (`zh-CN`, `zh-TW`, `zh-HK`, `zh-Hans`) uses Simplified Chinese. `auto` or an empty language follows the browser.
+
+## Compatibility
+
+- Jellyfin **12** (including nyanmisaka builds that report ABI `12.0.0.0`)
+- `targetAbi`: `12.0.0.0`
+- Plugin id: `a7e4c1d2-6b58-4f0a-9c33-81d5e2b47a60`
+- Assembly: `Jellyfin.Plugin.ColorDots.dll` (name unchanged from earlier releases)
+- Tag data: `/config/colordots/assignments.json` (per Jellyfin user)
+
+## Install from a plugin repository
+
+1. In Jellyfin: **Dashboard → Plugins → Repositories → Add**
+2. Name it anything you like. URL:
+
+   `https://raw.githubusercontent.com/zzzLiu/jellyfin-plugin-color-tags/main/manifest.json`
+
+3. Open the catalog, install **Jellyfin Color Tags**, then restart Jellyfin.
+
+Remove any older `ColorDots_*` plugin folder first. Jellyfin does not delete the previous folder; two folders with the same id can both load.
+
+## Manual install
+
+Download `jellyfin-color-tags_1.3.2.0.zip` from [Releases](https://github.com/zzzLiu/jellyfin-plugin-color-tags/releases).
+
+```bash
+rm -rf /config/plugins/ColorDots_* /config/plugins/ColorTags_*
+mkdir -p /config/plugins/ColorTags_1.3.2.0
+unzip jellyfin-color-tags_1.3.2.0.zip -d /config/plugins/ColorTags_1.3.2.0
+```
+
+Restart Jellyfin. The folder must contain `Jellyfin.Plugin.ColorDots.dll` and `meta.json` at the root of the zip.
+
+## Use
+
+Open **Jellyfin Color Tags** in the dashboard server menu (Chinese label: **Jellyfin 颜色标签**).
+
+- Add a color and a name. Drag a row to reorder.
+- White is the default placeholder. It is not listed under Tagged items and cannot be deleted.
+- On a poster, the menu reads top to bottom (smallest number first). In the player, the smallest number is at the bottom of the menu.
+- Each color can set a max streaming bitrate and/or Force transcode. When an item has more than one color, the strictest rule wins. Jellyfin Web can stay on Auto. Apps that open the file directly (for example Infuse) skip this.
+- Tagged items show title, library, and path. Export writes a CSV.
+
+Default names follow the interface language (White / 白, Red / 红, Green / 绿, Blue / 蓝). A name you change stays as you wrote it.
+
+## Screenshots
+
+Optional before a public release:
+
+- `docs/screenshots/poster.png` — dot above the ⋮ button
+- `docs/screenshots/player.png` — dot next to the favorite button
+- `docs/screenshots/settings.png` — labels and tagged items
+
+## License
+
+MIT. See [LICENSE](LICENSE).
+
+## Changelog
+
+See [RELEASE_NOTES.md](RELEASE_NOTES.md).
