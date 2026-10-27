@@ -1,6 +1,8 @@
 # Jellyfin 颜色标签
 
-给 Jellyfin 网页加色点。海报悬停时，圆点在 ⋮ 上方；播放时在收藏按钮旁边。可为每种颜色起名、拖动排序，也可为该色设置码率上限或强制转码。
+[English](README.md)
+
+在 Jellyfin 网页里给影片加一个颜色小点，用来自己做标记。鼠标停在海报上时，色点出现在 ⋮ 按钮上方；播放页面里，色点在收藏按钮旁边。每种颜色可以起名字、拖动调整顺序，也可以单独限制播放码率，或强制转码。
 
 界面默认英文。显示语言以 `zh` 开头（`zh-CN`、`zh-TW`、`zh-HK`、`zh-Hans`）时用简体中文。`auto` 或留空则跟浏览器语言。
 
@@ -46,6 +48,16 @@ unzip jellyfin-color-tags_1.3.2.0.zip -d /config/plugins/ColorTags_1.3.2.0
 - 已标记文件显示名称、媒体库和路径，可导出 CSV。
 
 默认名字跟界面语言（White / 白、Red / 红、Green / 绿、Blue / 蓝）。你改过的名字保持原样。
+
+## 支持 / 捐赠
+
+[Ko-fi](https://ko-fi.com/zzzliu)
+
+[![Buy me a coffee](docs/donate/ko-fi-button.png)](https://ko-fi.com/zzzliu)
+
+国内用户可以扫描下方微信赞赏码：
+
+<img src="docs/donate/wechat-appreciate.jpg" alt="微信赞赏码" width="220" />
 
 ## 许可证
 
