@@ -1,0 +1,509 @@
+<div id="ColorDotsConfigPage" data-role="page" class="page type-interior pluginConfigurationPage" data-require="emby-input,emby-button" data-controller="__plugin/ColorDotsConfig.js" data-title="Jellyfin Color Tags">
+    <style>
+        #ColorDotsConfigPage .jfcd-title-row {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 0.7em;
+            margin: 0 0 0.35em;
+        }
+        #ColorDotsConfigPage .jfcd-mark {
+            width: 40px;
+            height: 40px;
+            flex: 0 0 auto;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            background: rgba(0, 164, 220, 0.16);
+            color: #8fd8f5;
+        }
+        #ColorDotsConfigPage .jfcd-mark svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
+        }
+        #ColorDotsConfigPage #jfcd-page-title {
+            margin: 0;
+        }
+        /* Jellyfin drops <head> and caps form at 54em. Keep this style inside the page node.
+           Same model as Library Cover Enhancer: fill the dashboard column, and let that column
+           shrink with the window. Do not zero the page margins or clip overflow on the page. */
+        #ColorDotsConfigPage form,
+        #ColorDotsConfigPage .content-primary,
+        #ColorDotsConfigPage .jfcd-card {
+            width: 100%;
+            max-width: none;
+            min-width: 0;
+            box-sizing: border-box;
+        }
+        #ColorDotsConfigPage .jfcd-card,
+        #ColorDotsConfigPage .jfcd-line,
+        #ColorDotsConfigPage .jfcd-row,
+        #ColorDotsConfigPage .jfcd-group,
+        #ColorDotsConfigPage .jfcd-group-head,
+        #ColorDotsConfigPage .jfcd-file-row,
+        #ColorDotsConfigPage .jfcd-maintain,
+        #ColorDotsConfigPage button,
+        #ColorDotsConfigPage input {
+            box-sizing: border-box;
+        }
+        #ColorDotsConfigPage .jfcd-lead,
+        #ColorDotsConfigPage .jfcd-note {
+            margin: 0 0 1em;
+            max-width: 100%;
+            min-width: 0;
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+        }
+        #ColorDotsConfigPage .jfcd-note {
+            font-size: 0.92em;
+            opacity: 0.72;
+        }
+        #ColorDotsConfigPage .jfcd-card {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.035);
+            border-radius: 16px;
+            padding: 0.95em 1em 1em;
+            margin: 0 0 1.15em;
+            min-width: 0;
+        }
+        #ColorDotsConfigPage .jfcd-heading {
+            margin: 0 0 0.75em;
+            font-size: 1.02rem;
+            font-weight: 600;
+        }
+        #ColorDotsConfigPage #jfcd-labels,
+        #ColorDotsConfigPage #jfcd-report {
+            display: flex !important;
+            flex-direction: column !important;
+            flex-wrap: nowrap !important;
+            align-items: stretch !important;
+            justify-content: flex-start !important;
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+        }
+        #ColorDotsConfigPage .jfcd-line {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.55em;
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            margin: 0 0 0.5em;
+        }
+        #ColorDotsConfigPage .jfcd-row {
+            display: flex !important;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 0.55em;
+            flex: 1 1 0%;
+            width: auto;
+            min-width: 0;
+            max-width: 100%;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0.4em 0.65em;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.18);
+        }
+        #ColorDotsConfigPage .jfcd-row:hover {
+            border-color: rgba(255, 255, 255, 0.18);
+            background: rgba(255, 255, 255, 0.045);
+        }
+        #ColorDotsConfigPage .jfcd-row.is-dragging {
+            opacity: 0.45;
+            pointer-events: none;
+        }
+        #ColorDotsConfigPage .jfcd-row.is-drop-before {
+            box-shadow: inset 0 2px 0 currentColor;
+        }
+        #ColorDotsConfigPage .jfcd-row.is-drop-after {
+            box-shadow: inset 0 -2px 0 currentColor;
+        }
+        #ColorDotsConfigPage .jfcd-handle {
+            width: 32px;
+            min-width: 32px;
+            height: 32px;
+            flex: 0 0 auto;
+            border: 0;
+            border-radius: 8px;
+            padding: 0;
+            background: transparent;
+            color: inherit;
+            cursor: grab;
+            touch-action: none;
+            user-select: none;
+            font-size: 16px;
+            line-height: 1;
+            opacity: 0.7;
+        }
+        #ColorDotsConfigPage .jfcd-handle:hover {
+            background: rgba(255, 255, 255, 0.08);
+            opacity: 1;
+        }
+        #ColorDotsConfigPage .jfcd-num {
+            width: 2.2em;
+            min-width: 2.2em;
+            height: 1.7em;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.08);
+            text-align: center;
+            font-variant-numeric: tabular-nums;
+            font-size: 0.86em;
+            flex: 0 0 auto;
+        }
+        #ColorDotsConfigPage input.jfcd-swatch {
+            width: 28px;
+            min-width: 28px;
+            height: 28px;
+            flex: 0 0 auto;
+            padding: 0;
+            border: 0;
+            border-radius: 50%;
+            background: transparent;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        #ColorDotsConfigPage input.jfcd-swatch::-webkit-color-swatch-wrapper {
+            padding: 0;
+        }
+        #ColorDotsConfigPage input.jfcd-swatch::-webkit-color-swatch {
+            border: 0;
+            border-radius: 50%;
+        }
+        #ColorDotsConfigPage .jfcd-actions {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 0.45em;
+            margin-left: auto;
+            flex: 0 0 auto;
+            width: auto;
+            max-width: 100%;
+            min-width: 0;
+        }
+        #ColorDotsConfigPage input.jfcd-name {
+            flex: 1 1 8em;
+            width: 8em;
+            min-width: 8em !important;
+            max-width: 100%;
+            box-sizing: border-box;
+            border-radius: 8px;
+            border: 1px solid color-mix(in srgb, currentColor 35%, transparent);
+            background: transparent !important;
+            color: var(--primary-text-color, inherit) !important;
+            -webkit-text-fill-color: var(--primary-text-color, inherit) !important;
+            caret-color: var(--primary-text-color, inherit);
+            padding: 0.4em 0.65em;
+        }
+        #ColorDotsConfigPage .jfcd-play {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 0.45em 0.75em;
+            flex: 0 1 auto;
+            margin-left: auto;
+            min-width: 0;
+            max-width: 100%;
+        }
+        #ColorDotsConfigPage .jfcd-play.is-locked {
+            opacity: 0.45;
+        }
+        #ColorDotsConfigPage .jfcd-force,
+        #ColorDotsConfigPage .jfcd-bitrate {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4em;
+            min-width: 0;
+            font-size: 0.92em;
+        }
+        #ColorDotsConfigPage .jfcd-force {
+            white-space: nowrap;
+        }
+        #ColorDotsConfigPage .jfcd-bitrate-input,
+        #ColorDotsConfigPage .jfcd-unit {
+            border-radius: 8px;
+            border: 1px solid color-mix(in srgb, currentColor 35%, transparent);
+            background: transparent !important;
+            color: var(--primary-text-color, inherit) !important;
+            -webkit-text-fill-color: var(--primary-text-color, inherit) !important;
+            caret-color: var(--primary-text-color, inherit);
+            padding: 0.35em 0.5em;
+        }
+        #ColorDotsConfigPage .jfcd-bitrate-input {
+            width: 6.2em;
+            min-width: 0;
+        }
+        #ColorDotsConfigPage .jfcd-unit {
+            padding-right: 0.35em;
+        }
+        #ColorDotsConfigPage .jfcd-slot {
+            width: 32px;
+            min-width: 32px;
+            height: 32px;
+        }
+        #ColorDotsConfigPage .jfcd-iconbtn {
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.04);
+            color: inherit;
+            cursor: pointer;
+            font: inherit;
+            line-height: 1;
+        }
+        #ColorDotsConfigPage .jfcd-iconbtn svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+            display: block;
+            margin: 0 auto;
+        }
+        #ColorDotsConfigPage .jfcd-iconbtn:hover:not(:disabled) {
+            background: rgba(255, 255, 255, 0.14);
+        }
+        #ColorDotsConfigPage .jfcd-iconbtn.is-delete:hover:not(:disabled) {
+            background: rgba(226, 59, 59, 0.22);
+            border-color: rgba(226, 59, 59, 0.55);
+            color: #ff9a9a;
+        }
+        #ColorDotsConfigPage .jfcd-iconbtn:disabled {
+            opacity: 0.35;
+            cursor: default;
+        }
+        #ColorDotsConfigPage .jfcd-btn {
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            background: rgba(255, 255, 255, 0.05);
+            color: inherit;
+            padding: 0.45em 0.95em;
+            cursor: pointer;
+        }
+        #ColorDotsConfigPage .jfcd-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        #ColorDotsConfigPage .jfcd-btn-primary {
+            background: #00a4dc;
+            border-color: #00a4dc;
+            color: #041820;
+            font-weight: 650;
+        }
+        #ColorDotsConfigPage .jfcd-btn-primary:hover {
+            background: #1bb4e8;
+        }
+        #ColorDotsConfigPage .jfcd-group {
+            margin: 0 0 1.1em;
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+        }
+        #ColorDotsConfigPage .jfcd-group .jfcd-swatch {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            flex: 0 0 auto;
+        }
+        #ColorDotsConfigPage .jfcd-group-head {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 0.45em 0.75em;
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            margin: 0 0 0.45em;
+        }
+        #ColorDotsConfigPage .jfcd-group h3 {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            gap: 0.55em;
+            flex: 1 1 auto;
+            width: auto;
+            max-width: 100%;
+            min-width: 0;
+            margin: 0;
+            font-size: 1em;
+            font-weight: 560;
+            white-space: normal;
+        }
+        #ColorDotsConfigPage .jfcd-group h3 .jfcd-group-name {
+            flex: 1 1 0%;
+            width: 0;
+            min-width: 0;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            color: inherit;
+            font: inherit;
+            font-weight: 560;
+            text-align: left;
+            cursor: pointer;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        #ColorDotsConfigPage .jfcd-items {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        #ColorDotsConfigPage .jfcd-items a {
+            color: inherit;
+        }
+        #ColorDotsConfigPage .jfcd-items li,
+        #ColorDotsConfigPage .jfcd-file-row {
+            max-width: 100%;
+            min-width: 0;
+            width: 100%;
+        }
+        #ColorDotsConfigPage .jfcd-file-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.45em;
+            margin: 0 0 0.3em;
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+        }
+        #ColorDotsConfigPage .jfcd-file-row:has(button.jfcd-file.is-missing) {
+            align-items: flex-start;
+        }
+        #ColorDotsConfigPage button.jfcd-file {
+            display: flex;
+            align-items: center;
+            flex: 1 1 0%;
+            width: 0;
+            min-width: 0 !important;
+            max-width: 100%;
+            margin: 0;
+            padding: 0.4em 0.55em;
+            border: 0;
+            border-radius: 8px;
+            background: transparent;
+            color: inherit;
+            font: inherit;
+            text-align: left;
+            cursor: pointer;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        #ColorDotsConfigPage button.jfcd-file.is-missing {
+            flex-direction: column;
+            align-items: stretch;
+            white-space: normal;
+            gap: 0.12em;
+        }
+        #ColorDotsConfigPage .jfcd-file-text {
+            display: block;
+            flex: 1 1 0%;
+            width: 0;
+            min-width: 0;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        #ColorDotsConfigPage button.jfcd-file.is-missing .jfcd-file-text {
+            width: 100%;
+            flex: 0 1 auto;
+        }
+        #ColorDotsConfigPage .jfcd-item-delete {
+            flex: 0 0 auto;
+            max-width: 100%;
+            margin-left: 0;
+            white-space: normal;
+            overflow-wrap: anywhere;
+        }
+        #ColorDotsConfigPage .jfcd-file:hover {
+            background: rgba(255, 255, 255, 0.06);
+        }
+        #ColorDotsConfigPage .jfcd-empty,
+        #ColorDotsConfigPage .jfcd-status {
+            opacity: 0.7;
+        }
+        #ColorDotsConfigPage .jfcd-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6em;
+            margin: 0.4em 0 1em;
+        }
+        #ColorDotsConfigPage .jfcd-maintain {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 0.45em;
+            width: auto;
+            max-width: 100%;
+            min-width: 0;
+            margin: 0 0 0 auto;
+        }
+        #ColorDotsConfigPage .jfcd-maintain .jfcd-btn {
+            flex: 0 1 auto;
+            width: auto;
+            max-width: 100%;
+            min-width: 0;
+            font-size: 0.88em;
+            padding: 0.32em 0.75em;
+            white-space: normal;
+            overflow-wrap: anywhere;
+            text-align: center;
+            line-height: 1.3;
+        }
+    </style>
+    <div data-role="content">
+        <div class="content-primary">
+            <div class="jfcd-title-row">
+                <span class="jfcd-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0 0 18h1.2a2 2 0 0 0 2-2 1.4 1.4 0 0 1 1.4-1.4H18a3 3 0 0 0 3-3.1A9 9 0 0 0 12 3zm-5 9a1.4 1.4 0 1 1 0-2.8 1.4 1.4 0 0 1 0 2.8zm2.8-4.2a1.4 1.4 0 1 1 0-2.8 1.4 1.4 0 0 1 0 2.8zM14 7.2a1.4 1.4 0 1 1 0-2.8 1.4 1.4 0 0 1 0 2.8zM8.6 16.2a1.4 1.4 0 1 1 0-2.8 1.4 1.4 0 0 1 0 2.8z"/></svg></span>
+                <h2 class="sectionTitle" id="jfcd-page-title">Jellyfin Color Tags</h2>
+            </div>
+            <p class="jfcd-lead" id="jfcd-lead">Add custom colors and names. Drag to reorder. The dot appears above the ⋮ button on posters and next to the favorite button in the player.</p>
+            <section class="jfcd-card">
+                <h3 class="jfcd-heading" id="jfcd-labels-title">Labels</h3>
+                <form id="ColorDotsConfigForm">
+                    <div id="jfcd-labels"></div>
+                    <div class="jfcd-toolbar">
+                        <button is="emby-button" type="button" id="jfcd-add" class="jfcd-btn">
+                            <span>Add label</span>
+                        </button>
+                        <button is="emby-button" type="submit" class="jfcd-btn jfcd-btn-primary button-submit">
+                            <span>Save</span>
+                        </button>
+                    </div>
+                    <p class="jfcd-note" id="jfcd-note">White is the default and is not counted.</p>
+                    <p class="jfcd-note" id="jfcd-play-note">A color can cap the bitrate or always transcode. Leave the number empty for no limit. Several colors on one item: any Force transcode applies, and the lowest bitrate cap is used. The name is saved on the item. White is not. The web player can stay on Auto. Apps that open the file themselves, such as Infuse, skip this.</p>
+                    <p class="jfcd-status" id="jfcd-status"></p>
+                </form>
+            </section>
+            <section class="jfcd-card">
+                <h3 class="jfcd-heading" id="jfcd-report-title">Tagged items</h3>
+                <div class="jfcd-toolbar">
+                    <button is="emby-button" type="button" id="jfcd-export" class="jfcd-btn">
+                        <span>Export all (CSV)</span>
+                    </button>
+                </div>
+                <div id="jfcd-report"><p class="jfcd-empty">Loading…</p></div>
+            </section>
+        </div>
+    </div>
+</div>

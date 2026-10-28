@@ -1,5 +1,13 @@
 # Release notes — Jellyfin Color Tags
 
+## 1.4.0.0
+
+- An item can have more than one color. The dot is solid for one color, equal slices for several, and white when none are on.
+- The picker has two columns and stays open while you turn colors on or off.
+- Colors are shared by every user. Older per-user assignments are migrated; see [MIGRATION.md](MIGRATION.md).
+- The color name is written to the item's tags. White is not. Renaming or deleting a color updates those tags. Metadata edits are not copied back.
+- If several colors are on, any Force transcode applies, and the lowest bitrate cap is used.
+
 ## 1.3.2.0
 
 - Keeps the color dot in the player.

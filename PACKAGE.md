@@ -1,6 +1,6 @@
 # Package layout
 
-Release asset: `jellyfin-color-tags_1.3.2.0.zip`
+Release asset: `jellyfin-color-tags_1.4.0.0.zip`
 
 Contents (zip root, no nested folder):
 
@@ -9,6 +9,6 @@ Contents (zip root, no nested folder):
 
 `manifest.json` `checksum` is the **MD5** of that zip (not SHA-256):
 
-`93150cc44abf23736b329a7585c9a539`
+See `manifest.json` for the MD5 of `jellyfin-color-tags_1.4.0.0.zip`. The 1.3.2.0 zip remains `93150cc44abf23736b329a7585c9a539`.
 
 Do not put the zip inside the git tree for everyday commits if you prefer; hang it only on the GitHub Release. A copy lives under `release/` in this publish bundle for convenience.
