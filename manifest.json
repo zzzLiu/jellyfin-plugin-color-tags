@@ -12,8 +12,8 @@
         "changelog": "An item can have several colors. The picker stays open, with colors already on the item on the left and the rest on the right. Colors are shared by every user. Each color name is written to the item's tags. White is not. If several colors are on, any Force transcode applies, and the lowest bitrate cap is used.",
         "targetAbi": "12.0.0.0",
         "sourceUrl": "https://github.com/zzzLiu/jellyfin-plugin-color-tags/releases/download/v1.4.0.0/jellyfin-color-tags_1.4.0.0.zip",
-        "checksum": "6fcda4299db899203dbdc887f82b6636",
-        "timestamp": "2026-10-28T03:47:00Z"
+        "checksum": "04c39d11a92d07a96b8b9262c06a3dd8",
+        "timestamp": "2026-10-28T03:51:13Z"
       },
       {
         "version": "1.3.2.0",
