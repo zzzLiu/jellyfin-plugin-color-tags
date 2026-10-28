@@ -22,7 +22,7 @@ Series library grid with color-tag dots and the tag menu open.
 - `targetAbi`: `12.0.0.0`
 - Plugin id: `a7e4c1d2-6b58-4f0a-9c33-81d5e2b47a60`
 - Assembly: `Jellyfin.Plugin.ColorDots.dll` (name unchanged from earlier releases)
-- Tag data: `/config/colordots/assignments.json` (per Jellyfin user)
+- Tag data: `/config/colordots/assignments.json` (shared by every user)
 
 ## Install from a plugin repository
 
@@ -37,12 +37,12 @@ Remove any older `ColorDots_*` plugin folder first. Jellyfin does not delete the
 
 ## Manual install
 
-Download `jellyfin-color-tags_1.3.2.0.zip` from [Releases](https://github.com/zzzLiu/jellyfin-plugin-color-tags/releases).
+Download `jellyfin-color-tags_1.4.0.0.zip` from [Releases](https://github.com/zzzLiu/jellyfin-plugin-color-tags/releases).
 
 ```bash
 rm -rf /config/plugins/ColorDots_* /config/plugins/ColorTags_*
-mkdir -p /config/plugins/ColorTags_1.3.2.0
-unzip jellyfin-color-tags_1.3.2.0.zip -d /config/plugins/ColorTags_1.3.2.0
+mkdir -p /config/plugins/ColorTags_1.4.0.0
+unzip jellyfin-color-tags_1.4.0.0.zip -d /config/plugins/ColorTags_1.4.0.0
 ```
 
 Restart Jellyfin. The folder must contain `Jellyfin.Plugin.ColorDots.dll` and `meta.json` at the root of the zip.
@@ -52,9 +52,11 @@ Restart Jellyfin. The folder must contain `Jellyfin.Plugin.ColorDots.dll` and `m
 Open **Jellyfin Color Tags** in the dashboard server menu (Chinese label: **Jellyfin 颜色标签**).
 
 - Add a color and a name. Drag a row to reorder.
-- White is the default placeholder. It is not listed under Tagged items and cannot be deleted.
-- On a poster, the menu reads top to bottom (smallest number first). In the player, the smallest number is at the bottom of the menu.
-- Each color can set a max streaming bitrate and/or Force transcode. When an item has more than one color, the strictest rule wins. Jellyfin Web can stay on Auto. Apps that open the file directly (for example Infuse) skip this.
+- White is the default placeholder. It is not listed under Tagged items, cannot be deleted, and is not written as an item tag.
+- An item can have several colors. The dot is a solid circle for one color, equal slices for several, and white when none are on.
+- Click the dot to open two columns: colors already on the item on the left, the rest on the right. Click a color to turn it on or off. The panel stays open.
+- Colors are shared. Everyone sees the same dots. Turning a color on also adds its name to the item's tags. Turning it off removes that name. Other tags are left alone. Renaming or deleting a color updates those tags. Edits made in the metadata editor are not copied back.
+- Each color can set a max streaming bitrate and/or Force transcode. If several colors are on, any Force transcode applies, and the lowest bitrate cap is used. Jellyfin Web can stay on Auto. Apps that open the file directly (for example Infuse) skip this.
 - Tagged items show title, library, and path. Export writes a CSV.
 
 Default names follow the interface language (White / 白, Red / 红, Green / 绿, Blue / 蓝). A name you change stays as you wrote it.
