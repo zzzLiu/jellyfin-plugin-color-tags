@@ -22,7 +22,7 @@
 - `targetAbi`：`12.0.0.0`
 - 插件 id：`a7e4c1d2-6b58-4f0a-9c33-81d5e2b47a60`
 - 程序集：`Jellyfin.Plugin.ColorDots.dll`（与早期版本相同）
-- 标记数据：`/config/colordots/assignments.json`（所有用户共用）
+- 标记数据：`/config/colordots/assignments.json`（已发布的 1.3.2.0 按 Jellyfin 用户分开保存）
 
 ## 用插件仓库安装
 
@@ -37,17 +37,21 @@
 
 ## 手动安装
 
-从 [Releases](https://github.com/zzzLiu/jellyfin-plugin-color-tags/releases) 下载 `jellyfin-color-tags_1.4.0.0.zip`。
+已发布的版本是 **1.3.2.0**。1.4.0 还在这个仓库里开发，没有发布。
+
+从 [v1.3.2.0 发布页](https://github.com/zzzLiu/jellyfin-plugin-color-tags/releases/tag/v1.3.2.0) 下载 [jellyfin-color-tags_1.3.2.0.zip](https://github.com/zzzLiu/jellyfin-plugin-color-tags/releases/download/v1.3.2.0/jellyfin-color-tags_1.3.2.0.zip)。
 
 ```bash
 rm -rf /config/plugins/ColorDots_* /config/plugins/ColorTags_*
-mkdir -p /config/plugins/ColorTags_1.4.0.0
-unzip jellyfin-color-tags_1.4.0.0.zip -d /config/plugins/ColorTags_1.4.0.0
+mkdir -p /config/plugins/ColorTags_1.3.2.0
+unzip jellyfin-color-tags_1.3.2.0.zip -d /config/plugins/ColorTags_1.3.2.0
 ```
 
 重启 Jellyfin。目录里需要有 `Jellyfin.Plugin.ColorDots.dll` 和 `meta.json`（zip 根目录直接是这两个文件）。
 
 ## 使用
+
+上面安装的是 1.3.2.0（每个用户各自一个颜色）。下面写的是 1.4.0，还在这个仓库里，没有发布。
 
 在控制台服务器菜单打开 **Jellyfin Color Tags**（中文：**Jellyfin 颜色标签**）。
 

@@ -22,7 +22,7 @@ Series library grid with color-tag dots and the tag menu open.
 - `targetAbi`: `12.0.0.0`
 - Plugin id: `a7e4c1d2-6b58-4f0a-9c33-81d5e2b47a60`
 - Assembly: `Jellyfin.Plugin.ColorDots.dll` (name unchanged from earlier releases)
-- Tag data: `/config/colordots/assignments.json` (shared by every user)
+- Tag data: `/config/colordots/assignments.json` (per Jellyfin user in the published 1.3.2.0 release)
 
 ## Install from a plugin repository
 
@@ -37,17 +37,21 @@ Remove any older `ColorDots_*` plugin folder first. Jellyfin does not delete the
 
 ## Manual install
 
-Download `jellyfin-color-tags_1.4.0.0.zip` from [Releases](https://github.com/zzzLiu/jellyfin-plugin-color-tags/releases).
+The published release is **1.3.2.0**. Version 1.4.0 is in development in this repository and is not released.
+
+Download [jellyfin-color-tags_1.3.2.0.zip](https://github.com/zzzLiu/jellyfin-plugin-color-tags/releases/download/v1.3.2.0/jellyfin-color-tags_1.3.2.0.zip) from the [v1.3.2.0 release](https://github.com/zzzLiu/jellyfin-plugin-color-tags/releases/tag/v1.3.2.0).
 
 ```bash
 rm -rf /config/plugins/ColorDots_* /config/plugins/ColorTags_*
-mkdir -p /config/plugins/ColorTags_1.4.0.0
-unzip jellyfin-color-tags_1.4.0.0.zip -d /config/plugins/ColorTags_1.4.0.0
+mkdir -p /config/plugins/ColorTags_1.3.2.0
+unzip jellyfin-color-tags_1.3.2.0.zip -d /config/plugins/ColorTags_1.3.2.0
 ```
 
 Restart Jellyfin. The folder must contain `Jellyfin.Plugin.ColorDots.dll` and `meta.json` at the root of the zip.
 
 ## Use
+
+The install above is 1.3.2.0 (one color per item, kept separately for each user). The notes below describe 1.4.0, which is in this repository and not released yet.
 
 Open **Jellyfin Color Tags** in the dashboard server menu (Chinese label: **Jellyfin 颜色标签**).
 
